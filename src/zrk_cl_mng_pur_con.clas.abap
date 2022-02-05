@@ -50,6 +50,8 @@ CLASS zrk_cl_mng_pur_con IMPLEMENTATION.
     WHERE con_uuid  = @at_con_uuid
     INTO @gs_pur_con.
 
+    rs_pur_con = gs_pur_con.
+
   ENDMETHOD.
 
   METHOD modify.
