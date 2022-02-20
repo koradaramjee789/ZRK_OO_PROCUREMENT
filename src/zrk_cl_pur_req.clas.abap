@@ -21,7 +21,7 @@ ENDCLASS.
 
 
 
-CLASS zrk_cl_pur_req IMPLEMENTATION.
+CLASS ZRK_CL_PUR_REQ IMPLEMENTATION.
 
 
   METHOD constructor.
@@ -35,10 +35,10 @@ CLASS zrk_cl_pur_req IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD zrk_if_proc_doc~get_doc_details.
 
     e_object_det = at_object_det.
 
   ENDMETHOD.
-
 ENDCLASS.

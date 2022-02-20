@@ -12,7 +12,7 @@ ENDCLASS.
 
 
 
-CLASS zrk_cl_oo_driver IMPLEMENTATION.
+CLASS ZRK_CL_OO_DRIVER IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.

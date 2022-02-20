@@ -20,7 +20,9 @@ ENDCLASS.
 
 
 
-CLASS zrk_cl_proc_doc IMPLEMENTATION.
+CLASS ZRK_CL_PROC_DOC IMPLEMENTATION.
+
+
   METHOD constructor.
     at_object_type = i_object_type.
     at_object_id = i_object_id.
@@ -32,23 +34,28 @@ CLASS zrk_cl_proc_doc IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD zrk_if_proc_doc~get_doc_details.
 
 
 
   ENDMETHOD.
 
+
   METHOD zrk_if_proc_doc~reject_doc.
 
   ENDMETHOD.
+
 
   METHOD zrk_if_proc_doc~send_for_approval.
 
   ENDMETHOD.
 
+
   METHOD zrk_if_proc_doc~send_to_supplier.
 
   ENDMETHOD.
+
 
   METHOD zrk_if_proc_doc~get_instance.
 
@@ -63,5 +70,4 @@ CLASS zrk_cl_proc_doc IMPLEMENTATION.
         i_object_id   = at_object_id.
 
   ENDMETHOD.
-
 ENDCLASS.
