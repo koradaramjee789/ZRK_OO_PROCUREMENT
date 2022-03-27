@@ -76,7 +76,29 @@ CLASS ZRK_CL_MNG_PUR_CON IMPLEMENTATION.
   METHOD create.
 
     DATA(ls_pur_con) = is_pur_con.
-    ls_pur_con-object_id = |PC{ get_count( ) + 1 }|.
+
+*    data lv_pcnum type zrk_pc_number.
+
+    TRY.
+        cl_numberrange_runtime=>number_get(
+          EXPORTING
+*        ignore_buffer     =
+            nr_range_nr       = '01'
+            object            = 'ZRK_NR_PC'
+            quantity          = 1 "CONV #( lines( lt_entities_to_gen ) )
+*        subobject         =
+*        toyear            =
+          IMPORTING
+                number            = DATA(number_range_key)
+                returncode        = DATA(number_range_return_code)
+                returned_quantity = DATA(number_range_returned_quantity)
+        ).
+      CATCH cx_number_ranges.
+        "handle exception
+    ENDTRY.
+
+    data(lv_pcnum) = conv zrk_pc_number( number_range_key ).
+    ls_pur_con-object_id = |PC{ lv_pcnum }|.
     INSERT zrk_t_pur_con FROM @ls_pur_con.
 
   ENDMETHOD.
