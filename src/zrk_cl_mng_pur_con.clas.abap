@@ -62,7 +62,9 @@ CLASS ZRK_CL_MNG_PUR_CON IMPLEMENTATION.
 
   METHOD modify.
 
-    MODIFY zrk_t_pur_con FROM @is_pur_con.
+*    MODIFY zrk_t_pur_con FROM @is_pur_con.
+
+    gs_pur_con_upd = is_pur_con.
 
   ENDMETHOD.
 
@@ -155,7 +157,8 @@ CLASS ZRK_CL_MNG_PUR_CON IMPLEMENTATION.
 
   METHOD get_instance.
 
-    IF go_instance IS NOT BOUND.
+    IF go_instance IS NOT BOUND
+        AND iv_con_uuid IS NOT INITIAL.
       CREATE OBJECT go_instance
         EXPORTING
           iv_con_uuid = iv_con_uuid.
