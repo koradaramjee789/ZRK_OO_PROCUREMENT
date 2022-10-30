@@ -34,7 +34,9 @@ ENDCLASS.
 
 
 
-CLASS zrk_cl_sal_ord_manage IMPLEMENTATION.
+CLASS ZRK_CL_SAL_ORD_MANAGE IMPLEMENTATION.
+
+
   METHOD constructor.
     at_sal_ord_id = iv_sal_ord_id.
 
@@ -45,6 +47,7 @@ CLASS zrk_cl_sal_ord_manage IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD get_instance.
     IF go_instance IS NOT BOUND .
 *        AND iv_con_uuid IS NOT INITIAL.
@@ -54,6 +57,7 @@ CLASS zrk_cl_sal_ord_manage IMPLEMENTATION.
     ENDIF.
     rv_instance = go_instance.
   ENDMETHOD.
+
 
   METHOD create.
 
@@ -70,6 +74,7 @@ CLASS zrk_cl_sal_ord_manage IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD modify.
 
     gv_mode = 'MODIFY' .
@@ -77,6 +82,7 @@ CLASS zrk_cl_sal_ord_manage IMPLEMENTATION.
     APPEND is_sal_ord TO gt_sal_ord.
     at_sal_ord_id = gt_sal_ord[ 1 ]-object_id.
   ENDMETHOD.
+
 
   METHOD save.
 
@@ -90,6 +96,7 @@ CLASS zrk_cl_sal_ord_manage IMPLEMENTATION.
     ENDIF.
 
   ENDMETHOD.
+
 
   METHOD generate_sal_ord_id.
 
@@ -112,6 +119,7 @@ CLASS zrk_cl_sal_ord_manage IMPLEMENTATION.
     ENDIF.
   ENDMETHOD.
 
+
   METHOD get.
 
     IF gt_sal_ord IS INITIAL.
@@ -127,13 +135,16 @@ CLASS zrk_cl_sal_ord_manage IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD get_sal_ord_id.
     rv_sal_ord_id = at_sal_ord_id .
   ENDMETHOD.
 
+
   METHOD get_mode.
     rv_mode = gv_mode.
   ENDMETHOD.
+
 
   METHOD add_item.
 
@@ -145,6 +156,7 @@ CLASS zrk_cl_sal_ord_manage IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD modify_item.
 
     IF gv_mode IS INITIAL .
@@ -154,5 +166,4 @@ CLASS zrk_cl_sal_ord_manage IMPLEMENTATION.
     APPEND is_sal_ord_i TO gt_sal_ord_i.
 
   ENDMETHOD.
-
 ENDCLASS.

@@ -195,10 +195,11 @@ CLASS ZRK_CL_MNG_PUR_CON IMPLEMENTATION.
     gt_pur_con_i_upd = it_item.
 
   ENDMETHOD.
+
+
   METHOD GET_MODE.
 
     rv_mode = gv_mode .
 
   ENDMETHOD.
-
 ENDCLASS.
