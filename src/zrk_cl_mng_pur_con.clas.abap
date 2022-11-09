@@ -1,7 +1,7 @@
 CLASS zrk_cl_mng_pur_con DEFINITION
   PUBLIC
   FINAL
-  CREATE PUBLIC .
+  CREATE PRIVATE .
 
   PUBLIC SECTION.
     DATA: at_con_uuid TYPE sysuuid_x16 .
@@ -25,8 +25,7 @@ CLASS zrk_cl_mng_pur_con DEFINITION
       validate_supp_le
         IMPORTING iv_supplier        TYPE zrk_sup_no
                   iv_comp_code       TYPE zrk_company_code
-        RETURNING VALUE(rv_allowedd) TYPE abap_boolean
-        .
+        RETURNING VALUE(rv_allowedd) TYPE abap_boolean.
   PROTECTED SECTION.
   PRIVATE SECTION.
     DATA: gs_pur_con       TYPE zrk_t_pur_con,
@@ -34,6 +33,8 @@ CLASS zrk_cl_mng_pur_con DEFINITION
           gt_pur_con_i     TYPE zrk_tt_pur_con_i,
           gt_pur_con_i_upd TYPE zrk_tt_pur_con_i,
           gv_mode TYPE char10.
+
+          .
     CLASS-DATA :          go_instance TYPE REF TO zrk_cl_mng_pur_con.
 
 ENDCLASS.

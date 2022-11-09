@@ -47,14 +47,6 @@ CLASS ZRK_CL_PROC_DOC IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD zrk_if_proc_doc~send_for_approval.
-
-  ENDMETHOD.
-
-
-  METHOD zrk_if_proc_doc~send_to_supplier.
-
-  ENDMETHOD.
 
 
   METHOD zrk_if_proc_doc~get_instance.

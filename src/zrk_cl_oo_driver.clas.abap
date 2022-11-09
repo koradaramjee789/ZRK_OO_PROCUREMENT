@@ -21,7 +21,7 @@ CLASS ZRK_CL_OO_DRIVER IMPLEMENTATION.
 
   DATA(lo_proc_doc_base) = NEW zrk_cl_proc_doc(
     i_object_type = 'PUR_REQ'
-    i_object_id   = 'PR10000002'
+    i_object_id   = 'PR10000004'
   ).
 
 
