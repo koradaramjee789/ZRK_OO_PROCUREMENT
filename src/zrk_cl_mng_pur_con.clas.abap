@@ -15,6 +15,8 @@ CLASS zrk_cl_mng_pur_con DEFINITION
       get_count RETURNING VALUE(rv_count) TYPE int4,
       add_item IMPORTING it_item TYPE zrk_tt_pur_con_i,
       upd_item IMPORTING it_item TYPE zrk_tt_pur_con_i,
+      add_item_conds IMPORTING it_item_conds TYPE zrk_tt_pur_cond_i,
+      upd_item_conds IMPORTING it_item_conds TYPE zrk_tt_pur_cond_i,
       get_mode RETURNING VALUE(rv_mode) TYPE char10,
 
       save_document.
@@ -28,12 +30,13 @@ CLASS zrk_cl_mng_pur_con DEFINITION
         RETURNING VALUE(rv_allowedd) TYPE abap_boolean.
   PROTECTED SECTION.
   PRIVATE SECTION.
-    DATA: gs_pur_con       TYPE zrk_t_pur_con,
-          gs_pur_con_upd   TYPE zrk_t_pur_con,
-          gt_pur_con_i     TYPE zrk_tt_pur_con_i,
-          gt_pur_con_i_upd TYPE zrk_tt_pur_con_i,
-          gv_mode TYPE char10.
-
+    DATA: gs_pur_con               TYPE zrk_t_pur_con,
+          gs_pur_con_upd           TYPE zrk_t_pur_con,
+          gt_pur_con_i             TYPE zrk_tt_pur_con_i,
+          gt_pur_con_i_upd         TYPE zrk_tt_pur_con_i,
+          gt_pur_con_item_cond     TYPE zrk_tt_pur_cond_i,
+          gt_pur_con_item_cond_upd TYPE zrk_tt_pur_cond_i,
+          gv_mode                  TYPE char10
           .
     CLASS-DATA :          go_instance TYPE REF TO zrk_cl_mng_pur_con.
 
@@ -41,7 +44,7 @@ ENDCLASS.
 
 
 
-CLASS ZRK_CL_MNG_PUR_CON IMPLEMENTATION.
+CLASS zrk_cl_mng_pur_con IMPLEMENTATION.
 
 
   METHOD delete.
@@ -54,15 +57,15 @@ CLASS ZRK_CL_MNG_PUR_CON IMPLEMENTATION.
   METHOD get.
 
     IF gs_pur_con_upd IS INITIAL .
-        SELECT SINGLE *
-        FROM zrk_t_pur_con
-        WHERE con_uuid  = @at_con_uuid
-        INTO @gs_pur_con.
-        IF sy-subrc EQ 0.
-            rs_pur_con = gs_pur_con.
-        ENDIF.
+      SELECT SINGLE *
+      FROM zrk_t_pur_con
+      WHERE con_uuid  = @at_con_uuid
+      INTO @gs_pur_con.
+      IF sy-subrc EQ 0.
+        rs_pur_con = gs_pur_con.
+      ENDIF.
     ELSE.
-        rs_pur_con = gs_pur_con_upd .
+      rs_pur_con = gs_pur_con_upd .
     ENDIF.
 
   ENDMETHOD.
@@ -153,7 +156,7 @@ CLASS ZRK_CL_MNG_PUR_CON IMPLEMENTATION.
   METHOD upd_item.
 
     IF gv_mode IS INITIAL.
-        gv_mode = 'MODIFY'.
+      gv_mode = 'MODIFY'.
     ENDIF.
 
     gt_pur_con_i_upd = it_item.
@@ -171,6 +174,9 @@ CLASS ZRK_CL_MNG_PUR_CON IMPLEMENTATION.
       MODIFY zrk_t_pur_con_i FROM TABLE @gt_pur_con_i_upd.
     ENDIF.
 
+    if gt_pur_con_item_cond_upd IS NOT INITIAL.
+      MODIFY zrk_t_pur_cond_i FROM TABLE @gt_pur_con_item_cond_upd.
+    ENDIF.
 
   ENDMETHOD.
 
@@ -190,7 +196,7 @@ CLASS ZRK_CL_MNG_PUR_CON IMPLEMENTATION.
   METHOD add_item.
 
     IF gv_mode IS INITIAL.
-        gv_mode = 'MODIFY'.
+      gv_mode = 'MODIFY'.
     ENDIF.
 
     gt_pur_con_i_upd = it_item.
@@ -198,9 +204,28 @@ CLASS ZRK_CL_MNG_PUR_CON IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD GET_MODE.
+  METHOD get_mode.
 
     rv_mode = gv_mode .
 
   ENDMETHOD.
+  METHOD add_item_conds.
+
+    IF gv_mode IS INITIAL.
+      gv_mode = 'MODIFY'.
+    ENDIF.
+
+    APPEND LINES OF it_item_conds TO gt_pur_con_item_cond_upd.
+  ENDMETHOD.
+
+  METHOD upd_item_conds.
+
+    IF gv_mode IS INITIAL.
+      gv_mode = 'MODIFY'.
+    ENDIF.
+
+    APPEND LINES OF it_item_conds TO gt_pur_con_item_cond_upd.
+
+  ENDMETHOD.
+
 ENDCLASS.
