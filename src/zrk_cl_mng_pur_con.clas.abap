@@ -17,6 +17,7 @@ CLASS zrk_cl_mng_pur_con DEFINITION
       upd_item IMPORTING it_item TYPE zrk_tt_pur_con_i,
       add_item_conds IMPORTING it_item_conds TYPE zrk_tt_pur_cond_i,
       upd_item_conds IMPORTING it_item_conds TYPE zrk_tt_pur_cond_i,
+      add_attachments IMPORTING it_attachments TYPE zrk_tt_attach,
       get_mode RETURNING VALUE(rv_mode) TYPE char10,
 
       save_document.
@@ -36,6 +37,7 @@ CLASS zrk_cl_mng_pur_con DEFINITION
           gt_pur_con_i_upd         TYPE zrk_tt_pur_con_i,
           gt_pur_con_item_cond     TYPE zrk_tt_pur_cond_i,
           gt_pur_con_item_cond_upd TYPE zrk_tt_pur_cond_i,
+          gt_pur_con_att           TYPE zrk_tt_attach,
           gv_mode                  TYPE char10
           .
     CLASS-DATA :          go_instance TYPE REF TO zrk_cl_mng_pur_con.
@@ -174,8 +176,12 @@ CLASS zrk_cl_mng_pur_con IMPLEMENTATION.
       MODIFY zrk_t_pur_con_i FROM TABLE @gt_pur_con_i_upd.
     ENDIF.
 
-    if gt_pur_con_item_cond_upd IS NOT INITIAL.
+    IF gt_pur_con_item_cond_upd IS NOT INITIAL.
       MODIFY zrk_t_pur_cond_i FROM TABLE @gt_pur_con_item_cond_upd.
+    ENDIF.
+
+    IF gt_pur_con_att IS NOT INITIAL.
+      MODIFY zrk_lb_att FROM TABLE @gt_pur_con_att.
     ENDIF.
 
   ENDMETHOD.
@@ -225,6 +231,16 @@ CLASS zrk_cl_mng_pur_con IMPLEMENTATION.
     ENDIF.
 
     APPEND LINES OF it_item_conds TO gt_pur_con_item_cond_upd.
+
+  ENDMETHOD.
+
+  METHOD add_attachments.
+
+    IF gv_mode IS INITIAL.
+      gv_mode = 'MODIFY'.
+    ENDIF.
+
+    gt_pur_con_att = it_attachments.
 
   ENDMETHOD.
 
