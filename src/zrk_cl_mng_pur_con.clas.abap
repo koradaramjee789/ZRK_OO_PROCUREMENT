@@ -46,7 +46,7 @@ ENDCLASS.
 
 
 
-CLASS zrk_cl_mng_pur_con IMPLEMENTATION.
+CLASS ZRK_CL_MNG_PUR_CON IMPLEMENTATION.
 
 
   METHOD delete.
@@ -215,6 +215,8 @@ CLASS zrk_cl_mng_pur_con IMPLEMENTATION.
     rv_mode = gv_mode .
 
   ENDMETHOD.
+
+
   METHOD add_item_conds.
 
     IF gv_mode IS INITIAL.
@@ -223,6 +225,7 @@ CLASS zrk_cl_mng_pur_con IMPLEMENTATION.
 
     APPEND LINES OF it_item_conds TO gt_pur_con_item_cond_upd.
   ENDMETHOD.
+
 
   METHOD upd_item_conds.
 
@@ -234,6 +237,7 @@ CLASS zrk_cl_mng_pur_con IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD add_attachments.
 
     IF gv_mode IS INITIAL.
@@ -243,5 +247,4 @@ CLASS zrk_cl_mng_pur_con IMPLEMENTATION.
     gt_pur_con_att = it_attachments.
 
   ENDMETHOD.
-
 ENDCLASS.
