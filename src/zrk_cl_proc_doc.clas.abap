@@ -42,11 +42,6 @@ CLASS ZRK_CL_PROC_DOC IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD zrk_if_proc_doc~reject_doc.
-
-  ENDMETHOD.
-
-
   METHOD zrk_if_proc_doc~get_instance.
 
 
@@ -58,6 +53,11 @@ CLASS ZRK_CL_PROC_DOC IMPLEMENTATION.
       EXPORTING
         i_object_type = at_object_type
         i_object_id   = at_object_id.
+
+  ENDMETHOD.
+
+
+  METHOD zrk_if_proc_doc~reject_doc.
 
   ENDMETHOD.
 ENDCLASS.

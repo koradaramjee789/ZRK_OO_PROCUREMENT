@@ -21,14 +21,23 @@ CLASS zrk_cl_mng_pur_con DEFINITION
       get_mode RETURNING VALUE(rv_mode) TYPE char10,
 
       save_document.
-    CLASS-METHODS:
-      get_defaults_for_create RETURNING VALUE(rs_pur_con) TYPE zrk_t_pur_con,
-      get_instance IMPORTING iv_con_uuid        TYPE sysuuid_x16 OPTIONAL
-                   RETURNING VALUE(rv_instance) TYPE REF TO zrk_cl_mng_pur_con,
-      validate_supp_le
-        IMPORTING iv_supplier        TYPE zrk_sup_no
-                  iv_comp_code       TYPE zrk_company_code
-        RETURNING VALUE(rv_allowedd) TYPE abap_boolean.
+
+    CLASS-METHODS determine_company_code RETURNING VALUE(rv_comp_code) TYPE zrk_company_code.
+
+    CLASS-METHODS determine_supplier_material
+      IMPORTING iv_material           TYPE zrk_part_no
+      RETURNING VALUE(rv_supplier_id) TYPE zrk_sup_no.
+
+    CLASS-METHODS get_defaults_for_create RETURNING VALUE(rs_pur_con) TYPE zrk_t_pur_con.
+
+    CLASS-METHODS get_instance IMPORTING iv_con_uuid        TYPE sysuuid_x16 OPTIONAL
+                               RETURNING VALUE(rv_instance) TYPE REF TO zrk_cl_mng_pur_con.
+
+    CLASS-METHODS validate_supp_le
+      IMPORTING iv_supplier        TYPE zrk_sup_no
+                iv_comp_code       TYPE zrk_company_code
+      RETURNING VALUE(rv_allowedd) TYPE abap_boolean.
+
   PROTECTED SECTION.
   PRIVATE SECTION.
     DATA: gs_pur_con               TYPE zrk_t_pur_con,
@@ -46,7 +55,7 @@ ENDCLASS.
 
 
 
-CLASS ZRK_CL_MNG_PUR_CON IMPLEMENTATION.
+CLASS zrk_cl_mng_pur_con IMPLEMENTATION.
 
 
   METHOD delete.
@@ -247,4 +256,12 @@ CLASS ZRK_CL_MNG_PUR_CON IMPLEMENTATION.
     gt_pur_con_att = it_attachments.
 
   ENDMETHOD.
+  METHOD determine_company_code.
+    rv_comp_code = '5478'.
+  ENDMETHOD.
+
+  METHOD determine_supplier_material.
+    rv_supplier_id = 'S000000002'.
+  ENDMETHOD.
+
 ENDCLASS.
